@@ -50,7 +50,7 @@ In the case of the generation point G remove the initial 04 byte header then sep
 We'll be using this brainpoolP192t1 curve for our demo.
 
 The python code presented is a working illustration of both the key generation process and secret sharing mechanism.
-The comments within the code file explain the processes in more detail.
-Use at your own risk and not in any kind of production environment.
+Please refer to the comments within the code for more detail.
+Use at your own risk and not in any kind of production environment!
 
 

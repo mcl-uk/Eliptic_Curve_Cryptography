@@ -1,0 +1,26 @@
+# A Sage (https://cocalc.com/features/sage) illustration of keygen, 'encrypt' & 'decrypt'...
+# Using paramters from the brainpoolP192t1 curve
+# In the lines below '*' is not a normal multiply!
+Fp = FiniteField(0x00c302f41d932a36cda7a3463093d18db78fce476de1a86297) # p, our mudulus
+C = EllipticCurve(Fp, [ 0x00c302f41d932a36cda7a3463093d18db78fce476de1a86294, 0x13d56ffaec78681e68f9deb43b35bec2fb68542e27897b79 ]) # Fp,a,b
+print(hex(C.cardinality()))
+#  -> c302f41d932a36cda7a3462f9e9e916b5be8f1029ac4acc1
+G = C.point((0x3ae9e58c82f63c30282e1fe7bbf43fa72c446af6f4618129, 0x097e2c5667c2223a902ab5ca449d0084b7e5b3de7ccc01c9)) # (Gx,Gy)
+print(hex(G.order()))
+#  -> c302f41d932a36cda7a3462f9e9e916b5be8f1029ac4acc1
+# The same as cardinality above - all points on the curve are available
+# GeyGen...
+da = 98798760876087087098595 # private key, just a random number 0<da<n
+Qa = da * G # Qa is our public key (in addition to public curve params p,a,b & G)
+# Generate a secret point to secretly share
+r = 9876897650850558765 # a random < n
+R = r * G  # R is the "cypherText"
+S = r * Qa # S is the shared secret
+print(S)
+#  -> (1114636321152080090700161459824069947138473627825249766409 : 4086529875489135096725155509097443196244045899173204892732 : 1)
+# Send cypherText R
+# recover S from the secret key da & the received R
+Srx = da*R # private key * CypherText yields point S
+print(Srx)
+#  -> (1114636321152080090700161459824069947138473627825249766409 : 4086529875489135096725155509097443196244045899173204892732 : 1)
+# Check Srx == S

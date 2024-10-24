@@ -6,7 +6,7 @@ Inspired by https://www.johannes-bauer.com/compsci/ecc/ and https://github.com/u
 Demo of ECC keygen, encrypt & decrypt in plain python, migrateable to microPython
 
 First, note there is nothing eliptical or curvey about 'eliptic curves' in this context.
-Because it exists in a finite number space the 'curve' is in fact a collection of xy points that satisfy the cubic equation: y^2 = x^3 + ax + b _within_ our chosen number space.
+Because it exists in a finite integer number space the 'curve' is in fact a collection of xy points that satisfy the cubic equation: y^2 = x^3 + ax + b _within_ our chosen number space.
 Imagine a (huge) piece of graph paper with many dots peppered on it.
 One of the dots is chosen as a starting point (referred to as G) and the maths of ECC involves moving through the dots on a well defined but seemingly random route.
 

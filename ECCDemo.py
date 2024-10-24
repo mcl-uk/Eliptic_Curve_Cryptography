@@ -88,12 +88,12 @@ S = mul(Qa, rnd)  # (2) S is the secret xy point to be cryptographically shared
 s = md5(str(S).encode()).digest() # byte string
 print(f"Alice's secret:   {s.hex()}")
 
-R = mul(G, rnd)   # (3) 'cypherText' an xy point on the curve
+R = mul(G, rnd)   # (3) our 'cypherText' - another xy point on the curve
 print(f"CypherText:       {'/'.join(str(x) for x in R)}")
 
 # Bob...
 # 'decryption'
-Srx = mul(R, da) # (4) re-create the shared secret xy point S
+Srx = mul(R, da)  # (4) re-create the shared secret xy point S - that was easy!
 assert Srx == S
 
 # This works because (see mul() above), in ECC world:
@@ -101,8 +101,8 @@ assert Srx == S
 # G.r (3) takes you to point R and R.da (4) takes you to [Ta-Da!] S.
 #   G -------------da-----------> Qa -----r-----> S
 #   G -----r-----> R  -------------da-----------> S
-# Both Alice and Bob have essentially moved the same distance along the curve and arrived
-# at the same point because [r + da] == [da + r]. Same journey, different way-points.
+# Both Alice and Bob have moved the same distance along the curve and arrived at
+# the same point because [r + da] == [da + r]. Same journey, different way-points.
 # In ECC it's easy to find a destination point given a starting point and a distance but
 # very dificult to find the distance between two arbitrary points, this is the source of
 # the asymetry and why it all works. It is both amazing and great!

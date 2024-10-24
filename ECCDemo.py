@@ -58,8 +58,8 @@ def mul(P, k):
 
 # --- MAIN -----------------------------------------------------------------------
 
-# Let's just check our numbers and make sure that G actually is a valid point on
-# the curve...
+# Before we start, let's just check our numbers and make sure that G actually
+# is a valid point on the curve...
 x,y = G
 assert pow(y, 2, p) == (pow(x, 3, p) + ((a * x) % p) + b) % p
 

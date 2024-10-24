@@ -6,7 +6,7 @@ Inspired by https://www.johannes-bauer.com/compsci/ecc/ and https://github.com/u
 Demo of ECC keygen, encrypt & decrypt in plain python, migrateable to microPython
 
 First, note there is nothing eliptical or curvey about 'eliptic curves' in this context.
-Because it exists in a finite integer number space the 'curve' is in fact a collection of xy points that satisfy the cubic equation: y^2 = x^3 + ax + b _within_ our chosen number space.
+In ECC the curve is constrained to a finite integer number space and becomes a collection of xy points that satisfy the equation: y^2 = x^3 + ax + b _within_ our chosen number space.
 Imagine a (huge) piece of graph paper with many dots peppered on it.
 One of the dots is chosen as a starting point (referred to as G) and the maths of ECC involves moving through the dots on a well defined but seemingly random route.
 
@@ -20,13 +20,14 @@ Instead a random, secret, xy point on the curve is identified and cryptographica
 A key for subsequent (AES) communications is derived from the shared secret xy point by some mutally agreed algorithm.
 
 So if Alice wants to set up a secure channel to Bob (using some symetric encryption scheme) she'll need to somehow share a secret key with him.
-As with any public key system Bob must have already prepared a key-set and published his public key.
+ECC provides a machanism for this but, as with any public key system, Bob must have already prepared a key-pair and published a public key.
 In ECC he must also have chosen a particular eliptic curve with which to work and published that choice too.
 
 Meanwhile Alice must generate a one-time random number and use Bob's public key to derive two related xy points on his chosen curve.
 One becomes the shared secret, the other is sent on to Bob over the open channel.
 When Bob receives Alice's xy point he can use his private key to obtain a copy of Alice's secret.
 For Eve, the evesdropper, there is no realistic way obtain Alice's secret without access to Bob's private key.
+See the python code's comments for more details.
 
 A particular eliptic curve is specified by parameters: p, a, b, G & n where:
   p is a large prime that sets the curve's number-space or modulus,
@@ -36,7 +37,7 @@ A particular eliptic curve is specified by parameters: p, a, b, G & n where:
 Bob's public key, Qa, is some other xy point on the curve.
 
 There are an infinite number of possible eliptic curves, some better suited than others to crypto.
-Choosing a curve suitable for crypto is a very techical process so it's best to find an already engineered curve off-the-shelf.
+Choosing a curve suitable for crypto is a very technical process so it's best to find an already engineered curve off-the-shelf.
 We can use openSSL to help here, first ask openSSL for a list of all it's known eliptic curves with cmd:
 
 <code>$ openssl ecparam -list_curves</code>
@@ -45,7 +46,7 @@ Get the parameters for one of them (eg the brainpoolP192t1) using cmd:
 
 <code>$ openssl ecparam -param_enc explicit -text -noout -no_seed -name brainpoolP192t1</code>
 
-This yields all the info required to define a curve together with a generation point, ie: p,a,b,G & n.
+This yields all the info required to define an eliptic curve together with a generation point, ie: p,a,b,G & n.
 In the case of the generation point G remove the initial 04 byte header then separate out the x & y components - first half x, second half y.
 We'll be using this brainpoolP192t1 curve for our demo.
 

@@ -36,7 +36,7 @@ A particular eliptic curve is specified by parameters: p, a, b, G & n where:
 Bob's public key, Qa, is some other xy point on the curve.
 
 There are an infinite number of possible eliptic curves, some better suited than others to crypto.
-Choosing a curve suitable for crypto is a very techical process so its best to find an already engineered curve off-the-shelf.
+Choosing a curve suitable for crypto is a very techical process so it's best to find an already engineered curve off-the-shelf.
 We can use openSSL to help here, first ask openSSL for a list of all it's known eliptic curves with cmd:
 
 <code>$ openssl ecparam -list_curves</code>

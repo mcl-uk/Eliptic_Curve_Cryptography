@@ -19,11 +19,13 @@ n  = 0xc302f41d932a36cda7a3462f9e9e916b5be8f1029ac4acc1 # 'order' of G
 
 # --- support functions ---------------------------------------------------------------
 
+# An intermediate operation required by mul() below
 def inv(P):
     [xP, yP] = P
     if xP == None: return [None, None]
     return [xP, -yP % p]
 
+# An intermediate operation required by mul() below
 def dbl(P):
     if P[0] == None: return P
     if P[1] == 0: return [None, None]
@@ -32,6 +34,7 @@ def dbl(P):
     xR = (pow(s,2,p) - 2*xP) % p
     return [ xR, (-yP + s*(xP-xR)) % p ]
 
+# An intermediate operation required by mul() below
 def add(P,Q):
     if P == Q: return dbl(P)
     if P[0] == None: return Q
@@ -43,13 +46,14 @@ def add(P,Q):
     xR = (pow(s,2,p) - xP -xQ) % p
     return [ xR, (-yP + s*(xP-xR)) % p ]
 
+# This mul() operation is the heart and soul of ECC crypto.
 # Here we 'multiply' P, an xy point on the curve, by integer k within our
-# finite number space. Think of it as moving along the curve by a distance k 
-# This operation is the heart and soul of eliptic curve cryptography.
+# finite number space. Think of it as moving along the curve by a distance k.
+# The returned value is some other point on the curve, k clicks on from P.
 def mul(P, k):
     if P[0] == None: return P
     N, R = P, [None, None]
-    while k:
+    while k: # bit-wise itteration over k
         bit = k % 2
         k >>= 1
         if bit: R = add(R, N)
@@ -64,6 +68,7 @@ x,y = G
 assert pow(y, 2, p) == (pow(x, 3, p) + ((a * x) % p) + b) % p
 # Note that Python's pow() function can handle integers of arbitrary length and
 # supports an optional third modulus argument.
+# If this assertion fails check that you removed the leading 04 byte from G
 
 print(f"ECC demo using {n.bit_length()} bit key\n")
 

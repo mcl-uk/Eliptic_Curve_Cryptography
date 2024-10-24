@@ -1,4 +1,4 @@
-# Eliptic_Curve_Cryptography
+# Eliptic Curve Cryptography
 <i>ECC explained and illustrated with simple python code</i>
 
 Inspired by https://www.johannes-bauer.com/compsci/ecc/ and https://github.com/user8547/fast-ecc-python

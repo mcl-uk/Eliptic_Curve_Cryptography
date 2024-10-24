@@ -1,9 +1,9 @@
 #  Eliptic Curve Cryptography in python from scratch
 #  -------------------------------------------------
 #  SJM / MCL Oct 2024
-#
+
 # Inspired by: https://www.johannes-bauer.com/compsci/ecc/
-#
+
 # Demo of ECC keygen, encrypt & decrypt in plain python, migrateable to microPython
 
 import os # for urandom numbers
@@ -57,6 +57,11 @@ def mul(P, k):
     return R
 
 # --- MAIN -----------------------------------------------------------------------
+
+# Let's just check our numbers and make sure that G actually is a valid point on
+# the curve...
+x,y = G
+assert pow(y, 2, p) == (pow(x, 3, p) + ((a * x) % p) + b) % p
 
 print(f"ECC demo using {n.bit_length()} bit key\n")
 

@@ -28,5 +28,29 @@ One becomes the shared secret, the other is sent on to Bob over the open channel
 When Bob receives Alice's xy point he can use his private key to obtain a copy of Alice's secret.
 For Eve, the evesdropper, there is no realistic way obtain Alice's secret without access to Bob's private key.
 
+The public key-set comprises the chosen curve specified by parameters: p, a, b, G & n plus Bob's public key Qa where:
+  p is a large prime that defines the curve's number-space or modulus,
+  a & b are integers that further define the curve,
+  G is the 'generation point', an xy starting point on the curve,
+  n is the order of G - it sets the upper bound for Alice & Bob's random numbers.
+Bob's public key, Qa, is another xy point on the curve.
+
+There are an infinite number of possible eliptic curves, some suited better than others for crypto.
+So its best to find an already engineered curve off-the-shelf.
+We can use openSSL to help here, first ask openSSL for a list of all it's known eliptic curves with cmd:
+
+<code>$ openssl ecparam -list_curves</code>
+
+Get the parameters for one of them (eg the brainpoolP192t1) using cmd:
+
+<code>$ openssl ecparam -param_enc explicit -text -noout -no_seed -name brainpoolP192t1</code>
+
+This yields all the info required to define a curve together with a generation point, ie: p,a,b,G & n.
+In the case of the generation point G remove the initial 04 byte header then separate out the x & y components - first half x, second half y.
+We'll be using this brainpoolP192t1 curve for our demo.
+
 The python code presented is a working illustration of both the key generation process and secret sharing mechanism.
-Use at your own risk and not in any production environment.
+The comments within the code file explain the processes in more detail.
+Use at your own risk and not in any kind of production environment.
+
+

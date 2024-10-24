@@ -8,7 +8,7 @@ Demo of ECC keygen, encrypt & decrypt in plain python, migrateable to microPytho
 First, note there is nothing eliptical or curvey about 'eliptic curves' in this context.
 Because it exists in a finite number space the 'curve' is in fact a collection of xy points that satisfy the cubic equation: y^2 = x^3 + ax + b _within_ our chosen number space.
 Imagine a (huge) piece of graph paper with many dots peppered on it.
-One of dots is used as a starting point (referred to as G) and the maths of ECC involves moving through the dots on a well defined but seemingly random route.
+One of the dots is chosen as a starting point (referred to as G) and the maths of ECC involves moving through the dots on a well defined but seemingly random route.
 
 Perhaps surprisingly the computational demands of ECC are significantly less than those of RSA, particularly in key generation.
 Plus ECC key-lengths can be much smaller for the same level of security.
@@ -28,15 +28,15 @@ One becomes the shared secret, the other is sent on to Bob over the open channel
 When Bob receives Alice's xy point he can use his private key to obtain a copy of Alice's secret.
 For Eve, the evesdropper, there is no realistic way obtain Alice's secret without access to Bob's private key.
 
-The public key-set comprises the chosen curve specified by parameters: p, a, b, G & n plus Bob's public key Qa where:
-  p is a large prime that defines the curve's number-space or modulus,
-  a & b are integers that further define the curve,
+A particular eliptic curve is specified by parameters: p, a, b, G & n where:
+  p is a large prime that sets the curve's number-space or modulus,
+  a & b are integers that define the curve,
   G is the 'generation point', an xy starting point on the curve,
   n is the order of G - it sets the upper bound for Alice & Bob's random numbers.
-Bob's public key, Qa, is another xy point on the curve.
+Bob's public key, Qa, is some other xy point on the curve.
 
-There are an infinite number of possible eliptic curves, some suited better than others for crypto.
-So its best to find an already engineered curve off-the-shelf.
+There are an infinite number of possible eliptic curves, some better suited than others to crypto.
+Choosing a curve suitable for crypto is a very techical process so its best to find an already engineered curve off-the-shelf.
 We can use openSSL to help here, first ask openSSL for a list of all it's known eliptic curves with cmd:
 
 <code>$ openssl ecparam -list_curves</code>

@@ -62,6 +62,8 @@ def mul(P, k):
 # is a valid point on the curve...
 x,y = G
 assert pow(y, 2, p) == (pow(x, 3, p) + ((a * x) % p) + b) % p
+# Note that Python's pow() function can handle integers of arbitrary length and
+# supports an optional third modulus argument.
 
 print(f"ECC demo using {n.bit_length()} bit key\n")
 

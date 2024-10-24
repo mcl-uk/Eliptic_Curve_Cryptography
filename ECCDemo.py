@@ -72,6 +72,10 @@ da = 12345678901234567890123456789012345678901234567890123456
 assert da < n
 # Public key is just an xy point on the curve derived from da
 Qa = mul(G, da)  # (1) public key
+# So, from our starting point G we've moved a random distance da along the curve
+# and arrived at point Qa. Note that despite the fact that G and Qa are both made
+# public, provided the numbers involved are large enough, it's not feasible to back-
+# calculate da.
 print(f"Bob's Public key: {'/'.join(str(x) for x in Qa)}")
 print()
 

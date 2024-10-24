@@ -20,20 +20,22 @@ Instead a random, secret, xy point on the curve is identified and cryptographica
 A key for subsequent (AES) communications is derived from the shared secret xy point by some mutally agreed algorithm.
 
 So if Alice wants to set up a secure channel to Bob (using some symetric encryption scheme) she'll need to somehow share a secret key with him.
-ECC provides a machanism for this but, as with any public key system, Bob must have already prepared a key-pair and published a public key.
+ECC provides a mechanism for this but, as with any public key system, Bob must have already prepared a key-pair and published a public key.
 In ECC he must also have chosen a particular eliptic curve with which to work and published that choice too.
 
 Meanwhile Alice must generate a one-time random number and use Bob's public key to derive two related xy points on his chosen curve.
 One becomes the shared secret, the other is sent on to Bob over the open channel.
 When Bob receives Alice's xy point he can use his private key to obtain a copy of Alice's secret.
 For Eve, the evesdropper, there is no realistic way obtain Alice's secret without access to Bob's private key.
-See the python code's comments for more details.
+See the comments in the python code for more details.
 
 A particular eliptic curve is specified by parameters: p, a, b, G & n where:
-  p is a large prime that sets the curve's number-space or modulus,
-  a & b are integers that define the curve,
-  G is the 'generation point', an xy starting point on the curve,
-  n is the order of G - it sets the upper bound for Alice & Bob's random numbers.
+<pre>
+  p      is a large prime that sets the curve's number-space or modulus,
+  a & b  are integers that define the curve,
+  G      is the 'generation point', an xy starting point on the curve,
+  n      is the order of G - it sets the upper bound for Alice & Bob's random numbers.
+</pre>
 Bob's public key, Qa, is some other xy point on the curve.
 
 There are an infinite number of possible eliptic curves, some better suited than others to crypto.

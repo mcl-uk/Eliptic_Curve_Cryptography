@@ -13,7 +13,7 @@ Oh and when I say huge, think of something like <a href=https://www.johannes-bau
 
 Perhaps surprisingly the computational demands of ECC are significantly less than those of RSA, particularly in key generation.
 Plus ECC key-lengths can be much smaller for the same level of security.
-This would seem to make ECC an attractive option for micro-controller based applications and indeed the code presented here is easily mirateable to micropython.
+This would seem to make ECC an attractive option for micro-controller based applications and indeed the code presented here is easily migrateable to micropython.
 
 ECC is a public-key (asymetric) cryptosystem suited to establishing a shared secret crypto key for use in subsequent (symetrically) secured communications, eg AES.
 Unlike RSA it is not suited to encrypting/decrypting arbitrary messages, in ECC there is no plain-text as such.

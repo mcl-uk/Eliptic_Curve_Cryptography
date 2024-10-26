@@ -1,4 +1,4 @@
-#  Eliptic Curve Cryptography in python from scratch
+#  Elliptic Curve Cryptography in python from scratch
 #  -------------------------------------------------
 #  SJM / MCL Oct 2024
 

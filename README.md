@@ -1,11 +1,11 @@
-# Eliptic Curve Cryptography
+# Elliptic Curve Cryptography
 <i>ECC explained and illustrated with simple python code</i>
 
 Inspired by https://www.johannes-bauer.com/compsci/ecc/ and https://github.com/user8547/fast-ecc-python
 
 Demo of ECC keygen, encrypt & decrypt in plain python, migrateable to microPython
 
-First, note there is nothing eliptical or curvey about 'eliptic curves' in this context.
+First, note there is nothing elliptical or curvey about 'eliptic curves' in this context.
 In ECC the curve is constrained to a finite integer number space and becomes a collection of xy points that satisfy the equation: y^2 = x^3 + ax + b _within_ our chosen number space.
 Imagine a (huge) piece of graph paper with many dots peppered on it.
 One of the dots is chosen as a starting point (referred to as G) and the maths of ECC involves moving through the dots on a well defined but seemingly random route.
@@ -38,9 +38,9 @@ A particular eliptic curve is specified by parameters: p, a, b, G & n where:
 </pre>
 Bob's public key, Qa, is some other xy point on the curve.
 
-There are an infinite number of possible eliptic curves, some better suited than others to crypto.
+There are an infinite number of possible elliptic curves, some better suited than others to crypto.
 Choosing a curve suitable for crypto is a very technical process so it's best to find an already engineered curve off-the-shelf.
-We can use openSSL to help here, first ask openSSL for a list of all it's known eliptic curves with cmd:
+We can use openSSL to help here, first ask openSSL for a list of all it's known elliptic curves with cmd:
 
 <code>$ openssl ecparam -list_curves</code>
 

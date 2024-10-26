@@ -9,7 +9,7 @@ First, note there is nothing elliptical or curvey about 'eliptic curves' in this
 In ECC the curve is constrained to a finite integer number space, or field, and becomes a collection of xy points that satisfy the equation: y^2 = x^3 + ax + b _within_ our chosen number space.
 Imagine a (huge) piece of graph paper with many dots peppered on it.
 One of the dots is chosen as a starting point (referred to as G) and the maths of ECC involves moving through the dots on a well defined but seemingly random route.
-Oh and when I say huge, think of something like <a href=https://www.johannes-bauer.com/compsci/ecc/sageplot_06.png>this</a> but on a scale the size of the galaxy.
+Oh and when I say huge, think of something like <a href=https://www.johannes-bauer.com/compsci/ecc/sageplot_06.png>this</a> but on a scale the size of the galaxy :-)
 
 Perhaps surprisingly the computational demands of ECC are significantly less than those of RSA, particularly in key generation.
 Plus ECC key-lengths can be much smaller for the same level of security.

@@ -98,7 +98,7 @@ print()
 # Alice...
 # 'encryption' or more accurately shared secret creation and conversion for transmission
 # First, get a random number 0 < rnd < n to seed the operation
-rnd = int.from_bytes(os.urandom(bytLen(n))) # urandom requres a byte-count
+rnd = int.from_bytes(os.urandom(bytLen(n)), 'big') # urandom requres a byte-count
 while rnd > n: rnd >>= 1 # ensure our rnd is < n
 S = mul(Qa, rnd)  # (2) S is the secret xy point to be cryptographically shared
 # Create our secret AES key from S, for example take its md5 hash

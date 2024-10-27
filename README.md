@@ -14,6 +14,8 @@ Oh and when I say huge, think of something like <a href=https://www.johannes-bau
 Perhaps surprisingly the computational demands of ECC can be less than those of other PKC systems as ECC key-lengths can be much shorter for the same level of security.
 For example an ECC key length of 256bits is roughly equivalent to a 3072bit RSA key. 
 This would seem to make ECC an attractive option for micro-controller based applications and indeed the code presented here is easily migrateable to microPython.
+When I ran this demo on an ESP32 WROOM-32E in microPython 1.23 with timing analysis: keygen took ~100ms, encryption took ~300ms and de-cryption ~100ms.
+Encryption takes longer because it requires 2 mul() operations plus a random number generation.
 
 ECC is a public-key (asymetric) cryptosystem suited to establishing a shared secret crypto key (key establishment) for use in subsequent (symetrically) secured communications, eg AES.
 It also has applications in digital signing but that's another story.

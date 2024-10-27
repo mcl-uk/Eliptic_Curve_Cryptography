@@ -4,8 +4,7 @@
 
 # Inspired by: https://www.johannes-bauer.com/compsci/ecc/
 
-# Demo of 192bit ECC keygen, encrypt & decrypt in plain python
-# Works in microPython too
+# Demo of 192bit ECC keygen, encrypt & decrypt in basic python / microPython
 
 import os # for urandom numbers
 from hashlib import md5

@@ -30,7 +30,7 @@ In ECC he must also have chosen a particular eliptic curve with which to work an
 Meanwhile Alice must generate a one-time random number and use Bob's public key to derive two related xy points on his chosen curve.
 One becomes the shared secret, the other is sent on to Bob over the open channel.
 When Bob receives Alice's xy point he can use his private key to obtain a copy of Alice's secret.
-For Eve, the evesdropper, there is no realistic way obtain Alice's secret without access to Bob's private key.
+For Eve, the evesdropper, there is no realistic way to obtain Alice's secret without access to Bob's private key.
 See the comments in the python code for more details.
 
 A particular eliptic curve is specified by parameters: p, a, b, G & n where:

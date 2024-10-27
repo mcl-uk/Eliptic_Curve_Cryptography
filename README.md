@@ -54,7 +54,7 @@ Get the parameters for one of them (eg the brainpoolP192t1) using cmd:
 
 This yields all the info required to define a particular elliptic curve together with a generation point, ie: p,a,b,G & n.
 In the case of the generation point G, remove the initial 04 byte header then separate out the x & y components - first half x, second half y.
-We'll be using this brainpoolP192t1 curve for our demo.
+We'll be using this 192bit BrainPool curve for our demo.
 
 The python code presented is a working illustration of both the key generation process and secret sharing mechanism.
 Please refer to the comments within the code for more detail.

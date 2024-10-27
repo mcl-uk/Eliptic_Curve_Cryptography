@@ -60,6 +60,14 @@ def mul(P, k):
         N = dbl(N)
     return R
 
+# microPython does not support int.bit_length()
+def bitLen(n):
+    return len(bin(n).strip('0b'))
+
+def bytLen(n):
+    return (len(hex(n).strip('0x'))+1)//2
+
+
 # --- MAIN -----------------------------------------------------------------------
 
 # Before we start, let's just check our numbers and make sure that G actually
@@ -70,7 +78,7 @@ assert pow(y, 2, p) == (pow(x, 3, p) + ((a * x) % p) + b) % p
 # supports an optional third modulus argument.
 # If this assertion fails check that you removed the leading 04 byte from G
 
-print(f"ECC demo using {n.bit_length()} bit key\n")
+print(f"ECC demo using {bitLen(n)} bit key\n")
 
 # Bob's private/public key-pair generation:
 # The private key, da, is just a random number 0 < da < n
@@ -89,7 +97,8 @@ print()
 # Alice...
 # 'encryption' or more accurately shared secret creation and conversion for transmission
 # First, get a random number 0 < rnd < n to seed the operation
-rnd = int.from_bytes(os.urandom(n.bit_length() - 1))
+rnd = int.from_bytes(os.urandom(bytLen(n)))
+while rnd > n: rnd >>= 1
 S = mul(Qa, rnd)  # (2) S is the secret xy point to be cryptographically shared
 # Create our secret AES key from S, for example take its md5 hash
 s = md5(str(S).encode()).digest() # byte string
@@ -100,7 +109,7 @@ print(f"CypherText:       {'/'.join(str(x) for x in R)}")
 
 # Bob...
 # 'decryption'
-Srx = mul(R, da)  # (4) re-create the shared secret xy point S - that was easy!
+Srx = mul(R, da)  # (4) re-create the shared secret xy point S - wow that was easy!
 assert Srx == S
 
 # This works because (see mul() above), in ECC world:

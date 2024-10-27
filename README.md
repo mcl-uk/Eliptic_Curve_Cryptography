@@ -15,10 +15,11 @@ Perhaps surprisingly the computational demands of ECC can be less than those of 
 For example an ECC key length of 256bits is roughly equivalent to a 3072bit RSA key. 
 This would seem to make ECC an attractive option for micro-controller based applications and indeed the code presented here is easily migrateable to microPython.
 
-ECC is a public-key (asymetric) cryptosystem suited to establishing a shared secret crypto key for use in subsequent (symetrically) secured communications, eg AES.
+ECC is a public-key (asymetric) cryptosystem suited to establishing a shared secret crypto key (key establishment) for use in subsequent (symetrically) secured communications, eg AES.
+It also has applications in digital signing but that's another story.
 Unlike RSA it is not suited to encrypting/decrypting arbitrary messages, in ECC there is no plain-text as such.
 Instead a random, secret, xy point on the curve is identified and cryptographically shared.
-A key for subsequent (AES) communications is derived from the shared secret xy point by some mutally agreed algorithm.
+A key for subsequent (AES) communications is derived from the shared secret xy point by some mutually agreed algorithm.
 
 So if Alice wants to set up a secure channel to Bob (using some symetric encryption scheme) she'll need to somehow share a secret key with him.
 ECC provides a mechanism for this but, as with any public key system, Bob must have already prepared a key-pair and published a public key.

@@ -4,7 +4,8 @@
 
 # Inspired by: https://www.johannes-bauer.com/compsci/ecc/
 
-# Demo of ECC keygen, encrypt & decrypt in plain python, migrateable to microPython
+# Demo of 192bit ECC keygen, encrypt & decrypt in plain python
+# Works in microPython too
 
 import os # for urandom numbers
 from hashlib import md5
@@ -19,7 +20,7 @@ n  = 0xc302f41d932a36cda7a3462f9e9e916b5be8f1029ac4acc1 # 'order' of G
 
 # --- support functions ---------------------------------------------------------------
 
-# An intermediate operation required by mul() below
+# An intermediate operation required by add() below
 def inv(P):
     [xP, yP] = P
     if xP == None: return [None, None]
@@ -47,9 +48,9 @@ def add(P,Q):
     return [ xR, (-yP + s*(xP-xR)) % p ]
 
 # This mul() operation is the heart and soul of ECC crypto.
-# Here we 'multiply' P, an xy point on the curve, by integer k within our
-# finite number space. Think of it as moving along the curve by a distance k.
-# The returned value is some other point on the curve, k clicks on from P.
+# Here we 'multiply' point P, an xy point on the curve, by integer k within our
+# finite number field. Think of it as moving along the curve by a distance k.
+# The returned value is some other point on the curve, k clicks from P.
 def mul(P, k):
     if P[0] == None: return P
     N, R = P, [None, None]
@@ -97,8 +98,8 @@ print()
 # Alice...
 # 'encryption' or more accurately shared secret creation and conversion for transmission
 # First, get a random number 0 < rnd < n to seed the operation
-rnd = int.from_bytes(os.urandom(bytLen(n)))
-while rnd > n: rnd >>= 1
+rnd = int.from_bytes(os.urandom(bytLen(n))) # urandom requres a byte-count
+while rnd > n: rnd >>= 1 # ensure our rnd is < n
 S = mul(Qa, rnd)  # (2) S is the secret xy point to be cryptographically shared
 # Create our secret AES key from S, for example take its md5 hash
 s = md5(str(S).encode()).digest() # byte string

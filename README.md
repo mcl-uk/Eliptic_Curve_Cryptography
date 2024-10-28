@@ -3,7 +3,7 @@
 
 Inspired by https://www.johannes-bauer.com/compsci/ecc/ and https://github.com/user8547/fast-ecc-python
 
-Demo of ECC keygen and key establishment in plain python, currently working on a version for microPython
+Demo of ECC keygen and key establishment in plain python / microPython
 
 First, note there is nothing elliptical or curvey about 'eliptic curves' in this context.
 In ECC the curve is constrained to a finite integer number space, or field, and becomes a collection of xy points that satisfy the equation: y^2 = x^3 + ax + b _within_ our chosen number space.
@@ -11,11 +11,10 @@ Imagine a (huge) piece of graph paper with many dots peppered on it.
 One of the dots is chosen as a starting point (referred to as G) and the maths of ECC involves moving through the dots on a well defined but seemingly random route.
 Oh and when I say huge, think of something like <a href=https://www.johannes-bauer.com/compsci/ecc/sageplot_06.png>this</a> but on a scale the size of the galaxy :-)
 
-Perhaps surprisingly the computational demands of ECC can be less than those of other PKC systems as ECC key-lengths can be much shorter for the same level of security.
-For example an ECC key length of 256bits is roughly equivalent to a 3072bit RSA key. 
-This would seem to make ECC an attractive option for micro-controller based applications <s>and indeed the code presented here works with microPython.
-When I ran this demo on an ESP32 WROOM-32E in microPython 1.23 with timing analysis: keygen took ~100ms, encryption took ~300ms and de-cryption ~100ms.</s>
-Encryption takes longer because it requires 2 mul() operations plus a random number generation.
+ECC key-lengths can be much shorter for the same level of security, for example an ECC key length of 256bits is roughly equivalent to a 3072bit RSA key. 
+This might make ECC an attractive option for micro-controller based applications and indeed the code presented here works on microPython.
+When I ran this demo on an ESP32 WROOM-32E in microPython 1.23 with timing analysis: keygen took ~3.3s, encryption took ~7s and de-cryption ~3.3s.</s>
+Encryption takes longer because it requires 2 mul() operations plus the generation of a random number.
 
 ECC is a public-key (asymetric) cryptosystem suited to establishing a shared secret crypto key (key establishment) for use in subsequent (symetrically) secured communications, eg AES.
 It also has applications in digital signing but that's another story.

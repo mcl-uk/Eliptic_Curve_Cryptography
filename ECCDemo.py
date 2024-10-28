@@ -81,10 +81,10 @@ def mul(P, k):
 
 # microPython does not support int.bit_length()
 def bitLen(n):
-    return len(bin(n).strip('0b'))
+    return len(bin(n))-2
 
 def bytLen(n):
-    return (len(hex(n).strip('0x'))+1)//2
+    return (len(hex(n))-1)//2
 
 
 # --- MAIN -----------------------------------------------------------------------

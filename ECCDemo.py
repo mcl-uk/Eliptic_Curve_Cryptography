@@ -4,7 +4,8 @@
 
 # Inspired by: https://www.johannes-bauer.com/compsci/ecc/
 
-# Demo of 192bit ECC keygen, encrypt & decrypt in basic python / microPython
+# Demo of 192bit ECC keygen, encrypt & decrypt in basic python
+# *** Currently this code does not run correctly in microPython ***
 
 import os # for urandom numbers
 from hashlib import md5
@@ -103,13 +104,32 @@ S = mul(Qa, rnd)  # (2) S is the secret xy point to be cryptographically shared
 # Create our secret AES key from S, for example take its md5 hash
 s = md5(str(S).encode()).digest() # byte string
 print(f"Alice's secret:   {s.hex()}")
-
 R = mul(G, rnd)   # (3) our 'cypherText' - another xy point on the curve
-print(f"CypherText:       {'/'.join(str(x) for x in R)}")
+
+# In bandwidth constrained applications we can 'compress' R by abreviating it
+# to its X co-ordinate and the 'sign' of its Y co-ord for transmission.
+# Upon reception, Bob must recalculate Y given X, remember the LHS of the
+# curve equation is Y^2 so solving for Y yields two results, one +ve, one -ve.
+# Taking a square root in finite field maths is tricky but IF p mod 4 == 3
+# there's a shortcut: sqrt(v) = +/- pow(v, (p+1)//4, p).
+# For illustration lets compress for transmission and decompress at reception.
+#
+assert p%4 == 3
+cR = R[0]*2 + (0,1)[R[1] > p//2] # compress
+cR_rx = cR # transmit
+print(f"CypherText:       {hex(cR).strip('0x')}")
 
 # Bob...
+# receive & decompress...
+rx = cR_rx // 2
+rysign = cR_rx % 2
+rysqd = (pow(rx, 3, p) + a*rx + b) % p
+ry = pow(rysqd, (p+1)//4, p) # gives sqrt(ysqd) !
+if (rysign == 1) != (ry > p//2): ry = -ry%p
+Rrx = [rx, ry] # the decompressed point
+
 # 'decryption'
-Srx = mul(R, da)  # (4) re-create the shared secret xy point S - wow that was easy!
+Srx = mul(Rrx, da)  # (4) re-create the shared secret xy point S - wow that was easy!
 assert Srx == S
 
 # This works because (see mul() above), in ECC world:

@@ -32,7 +32,7 @@ def dbl(P):
     if P[0] == None: return P
     if P[1] == 0: return [None, None]
     [xP, yP] = P
-    s = (3*pow(xP,2,p)+a) * pow(2*yP, p-2, p)
+    s = (3*pow(xP,2,p)+a) * pow(2*yP, p-2, p)  # equiv pow(..., -1, p)
     xR = (pow(s,2,p) - 2*xP) % p
     return [ xR, (-yP + s*(xP-xR)) % p ]
 
@@ -44,7 +44,7 @@ def add(P,Q):
     if Q == inv(P): return [None, None]
     [xP, yP] = P
     [xQ, yQ] = Q
-    s = (yP - yQ) * pow(xP-xQ, p-2, p)
+    s = (yP - yQ) * pow(xP-xQ, p-2, p)  # equiv pow(..., -1, p)
     xR = (pow(s,2,p) - xP -xQ) % p
     return [ xR, (-yP + s*(xP-xR)) % p ]
 

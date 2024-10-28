@@ -5,7 +5,8 @@
 # Inspired by: https://www.johannes-bauer.com/compsci/ecc/
 
 # Demo of 192bit ECC keygen, encrypt & decrypt in basic python
-# *** Currently this code does not run correctly in microPython ***
+# Now works in microPython too
+# uPy does not support pow(x,-1,p), but if p is prime pow(x, p-2, p) is equivalent
 
 import os # for urandom numbers
 from hashlib import md5
@@ -31,7 +32,7 @@ def dbl(P):
     if P[0] == None: return P
     if P[1] == 0: return [None, None]
     [xP, yP] = P
-    s = (3*pow(xP,2,p)+a) * pow(2*yP, -1, p)
+    s = (3*pow(xP,2,p)+a) * pow(2*yP, p-2, p)
     xR = (pow(s,2,p) - 2*xP) % p
     return [ xR, (-yP + s*(xP-xR)) % p ]
 
@@ -43,7 +44,7 @@ def add(P,Q):
     if Q == inv(P): return [None, None]
     [xP, yP] = P
     [xQ, yQ] = Q
-    s = (yP - yQ) * pow(xP-xQ, -1, p)
+    s = (yP - yQ) * pow(xP-xQ, p-2, p)
     xR = (pow(s,2,p) - xP -xQ) % p
     return [ xR, (-yP + s*(xP-xR)) % p ]
 

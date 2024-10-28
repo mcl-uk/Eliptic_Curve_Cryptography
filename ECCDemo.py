@@ -3,10 +3,12 @@
 #  SJM / MCL Oct 2024
 
 # Inspired by: https://www.johannes-bauer.com/compsci/ecc/
+# and          https://github.com/user8547/fast-ecc-python
 
 # Demo of 192bit ECC keygen, encrypt & decrypt in basic python
 # Now works in microPython too
-# uPy does not support pow(x,-1,p), but if p is prime pow(x, p-2, p) is equivalent
+# Note uPy does not support pow(x,-1,p), for p prime pow(x, p-2, p) is equivalent
+# BUT slower than the eea() function now used below 
 
 import os # for urandom numbers
 from hashlib import md5
@@ -22,9 +24,9 @@ n  = 0xc302f41d932a36cda7a3462f9e9e916b5be8f1029ac4acc1 # 'order' of G
 # --- support functions ---------------------------------------------------------------
 
 # A minimal implemetation of the "extended euclidean algorithm" to find
-# the "multiplicative inverse" of e mod u
-# Equivalent to pow(e, -1, u) - not supported in older Pythons or uPy
-# Note that if u is prime can use pow(e, p-2, p) as an alternative, but its slower.
+# the "multiplicative inverse" of e mod u. Essentially helps implement modulo divides.
+# Equivalent to pow(e, -1, p) - not supported in older Pythons or uPy
+# Note that if u is prime can use pow(e, p-2, p) as an alternative, but it's slower.
 def eea(e, u):
     a,b = e,u
     cd  = [(1,0),(0,1),(0,0)]

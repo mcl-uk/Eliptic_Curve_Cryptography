@@ -6,9 +6,9 @@
 # and          https://github.com/user8547/fast-ecc-python
 
 # Demo of 192bit ECC keygen, encrypt & decrypt in basic python
-# Now works in microPython too
-# Note uPy does not support pow(x,-1,p), for p prime pow(x, p-2, p) is equivalent
-# BUT slower than the eea() function now used below 
+# Now works in microPython v1.23 too. Note that v1.23 does not support pow(x,-1,p),
+# although for p prime pow(x, p-2, p) is equivalent BUT slower than the eea()
+# function now implemented below 
 
 import os # for urandom numbers
 from hashlib import md5

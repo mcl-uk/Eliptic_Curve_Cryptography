@@ -21,6 +21,21 @@ n  = 0xc302f41d932a36cda7a3462f9e9e916b5be8f1029ac4acc1 # 'order' of G
 
 # --- support functions ---------------------------------------------------------------
 
+# A minimal implemetation of the "extended euclidean algorithm" to find
+# the "multiplicative inverse" of e mod u
+# Equivalent to pow(e, -1, u) - not supported in older Pythons or uPy
+# Note that if u is prime can use pow(e, p-2, p) as an alternative, but its slower.
+def eea(e, u):
+    a,b = e,u
+    cd  = [(1,0),(0,1),(0,0)]
+    while b > 0:
+        q,r = a//b, a%b
+        cd[2] = (cd[0][0]-q*cd[1][0], cd[0][1]-q*cd[1][1])
+        for i in (0,1): cd[i] = cd[i+1]
+        a,b = b,r
+    if a != 1: return None # Impossible
+    return cd[0][0];
+
 # An intermediate operation required by add() below
 def inv(P):
     [xP, yP] = P
@@ -32,7 +47,7 @@ def dbl(P):
     if P[0] == None: return P
     if P[1] == 0: return [None, None]
     [xP, yP] = P
-    s = (3*pow(xP,2,p)+a) * pow(2*yP, p-2, p)  # equiv pow(..., -1, p)
+    s = (3*pow(xP,2,p)+a) * eea(2*yP, p)  # equiv pow(_, -1, p)
     xR = (pow(s,2,p) - 2*xP) % p
     return [ xR, (-yP + s*(xP-xR)) % p ]
 
@@ -44,7 +59,7 @@ def add(P,Q):
     if Q == inv(P): return [None, None]
     [xP, yP] = P
     [xQ, yQ] = Q
-    s = (yP - yQ) * pow(xP-xQ, p-2, p)  # equiv pow(..., -1, p)
+    s = (yP - yQ) * eea(xP-xQ, p)  # equiv pow(_, -1, p)
     xR = (pow(s,2,p) - xP -xQ) % p
     return [ xR, (-yP + s*(xP-xR)) % p ]
 

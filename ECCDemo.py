@@ -92,7 +92,7 @@ def bytLen(n):
 # Before we start, let's just check our numbers and make sure that G actually
 # is a valid point on the curve...
 x,y = G
-assert pow(y, 2, p) == (pow(x, 3, p) + ((a * x) % p) + b) % p
+assert pow(y, 2, p) == (pow(x, 3, p) + a*x + b) % p
 # Note that Python's pow() function can handle integers of arbitrary length and
 # supports an optional third modulus argument.
 # If this assertion fails check that you removed the leading 04 byte from G

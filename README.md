@@ -11,7 +11,7 @@ Imagine a (huge) piece of graph paper with many dots peppered on it.
 One of the dots is chosen as a starting point (referred to as G) and the maths of ECC involves moving through the dots on a well defined but seemingly random route.
 Oh and when I say huge, think of something like <a href=https://www.johannes-bauer.com/compsci/ecc/sageplot_06.png>this</a> but on a scale the size of the galaxy :-)
 
-ECC key-lengths can be much shorter for the same level of security, for example an ECC key length of 256bits is roughly equivalent to a 3072bit RSA key. 
+ECC key-lengths can be shorter (than RSA's) for the same level of security, for example an ECC key length of 256bits is roughly equivalent to a 3072bit RSA key. 
 This might make ECC an attractive option for micro-controller based applications and indeed the code presented here is written for microPython.
 When I ran this demo on an ESP32 WROOM-32E in microPython 1.23 with timing analysis: 192-bit keygen took ~3.3s, encryption took ~7s and de-cryption ~3.3s.
 Encryption takes longer because it requires 2 mul() operations plus the generation of a random number.

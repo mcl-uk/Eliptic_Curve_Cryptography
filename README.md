@@ -12,9 +12,10 @@ One of the dots is chosen as a starting point (referred to as G) and the maths o
 Oh and when I say huge, think of something like <a href=https://www.johannes-bauer.com/compsci/ecc/sageplot_06.png>this</a> but on a scale the size of the galaxy :-)
 
 ECC key-lengths can be much shorter for the same level of security, for example an ECC key length of 256bits is roughly equivalent to a 3072bit RSA key. 
-This might make ECC an attractive option for micro-controller based applications and indeed the code presented here works on microPython.
-When I ran this demo on an ESP32 WROOM-32E in microPython 1.23 with timing analysis: keygen took ~3.3s, encryption took ~7s and de-cryption ~3.3s.</s>
+This might make ECC an attractive option for micro-controller based applications and indeed the code presented here is written for microPython.
+When I ran this demo on an ESP32 WROOM-32E in microPython 1.23 with timing analysis: 192-bit keygen took ~3.3s, encryption took ~7s and de-cryption ~3.3s.
 Encryption takes longer because it requires 2 mul() operations plus the generation of a random number.
+1024 bit RSA on the same platform is faster for for encrypt (<2s) & decrypt (<.1s) but key generation is painfully slow at ~1minute, bigger keys would take longer still.
 
 ECC is a public-key (asymetric) cryptosystem suited to establishing a shared secret crypto key (key establishment) for use in subsequent (symetrically) secured communications, eg AES.
 It also has applications in digital signing but that's another story.
